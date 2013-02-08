@@ -18,17 +18,24 @@
 
 package compkey_problem;
 
+import java.math.BigDecimal;
+
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
+import compkey_problem.model.FluidSample;
 import compkey_problem.model.SampleGroup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml"})
+@Transactional
+@TransactionConfiguration(defaultRollback = false)
 public class TumorStoringTest
 {
 	@Autowired
@@ -37,7 +44,10 @@ public class TumorStoringTest
 	@Test
 	public void testStoringSample() throws Exception
 	{
-		SampleGroup sample = new SampleGroup();
-		this.sessionFactory.getCurrentSession().persist(sample);
+		SampleGroup sampleGroup = new SampleGroup();
+		final FluidSample sample = sampleGroup.addNewPreFluidSample();
+		sample.setAmount(BigDecimal.ONE);
+		sample.addNewLabel("test");
+		this.sessionFactory.getCurrentSession().persist(sampleGroup);
 	}
 }

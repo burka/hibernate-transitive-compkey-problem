@@ -18,19 +18,26 @@
 
 package compkey_problem.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "fluid_sample_label")
-public class FluidSampleLabel
+public class FluidSampleLabel implements Serializable
 {
 	@Id
+	@ManyToOne
+	@JoinColumns({ @JoinColumn(name = "sample_group_id"), @JoinColumn(name = "pre_post")})
 	private FluidSample sample;
 
 	@Id
-	private String value;
+	private String label;
 
 	@SuppressWarnings("unused")
 	private FluidSampleLabel()
@@ -40,11 +47,11 @@ public class FluidSampleLabel
 	FluidSampleLabel(FluidSample sample, String value)
 	{
 		this.sample = sample;
-		this.value = value;
+		this.label = value;
 	}
 
-	public String getValue()
+	public String getLabel()
 	{
-		return this.value;
+		return this.label;
 	}
 }

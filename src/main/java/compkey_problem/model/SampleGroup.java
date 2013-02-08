@@ -21,6 +21,7 @@ package compkey_problem.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(name = "sampleGroupSequence", sequenceName = "sample_seq", allocationSize = 1)
+@SequenceGenerator(name = "sampleGroupSequence", sequenceName = "sample_group_seq", allocationSize = 1)
 @Table(name = "sample_group")
 public class SampleGroup
 {
@@ -40,7 +41,7 @@ public class SampleGroup
 	@Column(name = "sample_group_id")
 	private Integer sampleGroupId;
 
-	@OneToMany(mappedBy = "sampleGroup")
+	@OneToMany(mappedBy = "sampleGroup", cascade = { CascadeType.ALL})
 	private List<FluidSample> fluidSamples = new ArrayList<>();
 
 	@Column(name = "payload")
