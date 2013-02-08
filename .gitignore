@@ -1,0 +1,10 @@
+target/
+.eclipse/
+bin/
+work/
+.settings/
+.build/
+bin/
+.classpath
+.project
+*~
